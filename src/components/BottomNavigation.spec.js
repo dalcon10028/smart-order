@@ -18,7 +18,7 @@ describe('BottomNavigation.vue', () => {
     const wrapper = shallowMount(BottomNavigation);
 
     // when
-    const bottomNavigation = wrapper.find('#bottom-navigation');
+    const bottomNavigation = wrapper.get('[data-test="bottom-navigation"]');
 
     // then
     expect(bottomNavigation.classes()).toContain('fix', 'bottom-0');
@@ -29,7 +29,7 @@ describe('BottomNavigation.vue', () => {
     const wrapper = shallowMount(BottomNavigation);
 
     // when
-    const bottomNavigation = wrapper.find('#bottom-navigation');
+    const bottomNavigation = wrapper.get('[data-test="bottom-navigation"]');
 
     // then
     expect(bottomNavigation.classes()).toContain('justify-center');

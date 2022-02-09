@@ -16,10 +16,10 @@ describe('LoginPage.vue', () => {
   it('로그인 버튼 하단에는 아이디와 비밀번호가 실시간으로 반영이 되어 표시되어야 합니다.', () => {
     // given
     const wrapper = mount(LoginPage);
-    const idInput = wrapper.find('#id');
-    const pwInput = wrapper.find('#pw');
-    const idView = wrapper.find('#id-view');
-    const pwView = wrapper.find('#pw-view');
+    const idInput = wrapper.get('[data-test="id"]');
+    const pwInput = wrapper.get('[data-test="pw"]');
+    const idView = wrapper.get('[data-test="id-view"]');
+    const pwView = wrapper.get('[data-test="pw-view"]');
     const [mockId, mockPw] = ['yeonkwon', '1028'];
 
     // when
