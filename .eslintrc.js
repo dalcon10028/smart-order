@@ -4,7 +4,13 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: ['plugin:vue/vue3-essential', '@vue/airbnb', 'prettier', 'plugin:prettier/recommended'],
+  extends: [
+    'plugin:vue/vue3-essential',
+    '@vue/airbnb',
+    'prettier',
+    'plugin:prettier/recommended',
+    'eslint-config-prettier',
+  ],
   plugins: ['jest', 'prettier'],
   parserOptions: {
     parser: '@babel/eslint-parser',

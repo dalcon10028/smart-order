@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center flex-col w-full h-full">
-    <login-form />
-    <user-info-view />
+    <login-form v-model:userId="userId" v-model:password="password" />
+    <user-info-view :userId="userId" :password="password" />
   </div>
 </template>
 
@@ -12,11 +12,16 @@ import UserInfoView from './UserInfoView.vue';
 export default {
   name: 'LoginPage',
   components: {
-    LoginForm, UserInfoView,
+    LoginForm,
+    UserInfoView,
+  },
+  data() {
+    return {
+      userId: '',
+      password: '',
+    };
   },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
