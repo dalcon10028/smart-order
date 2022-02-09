@@ -1,6 +1,9 @@
 <template>
-  <section id="bottom-navigation" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow">
-    <div id="tabs" class="flex justify-between">
+  <section
+    data-test="bottom-navigation"
+    class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow"
+  >
+    <div class="flex justify-between" data-test="button-wrap">
       <a
         href="#"
         class="w-full focus:text-indigo-500 hover:text-indigo-500 justify-center inline-block text-center pt-2 pb-1"

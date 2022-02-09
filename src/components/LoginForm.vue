@@ -25,6 +25,7 @@
       </label>
     </div>
     <button
+      id="login"
       type="submit"
       class="block w-full bg-indigo-600 mt-4 py-2 rounded-lg text-white font-semibold mb-2"
     >
