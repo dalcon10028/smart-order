@@ -5,17 +5,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import BottomNavigation from './components/BottomNavigation.vue';
 import LoginPage from './components/LoginPage.vue';
-
-export default {
-  name: 'App',
-  components: {
-    LoginPage,
-    BottomNavigation,
-  },
-};
 </script>
 
 <style>

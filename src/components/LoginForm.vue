@@ -8,7 +8,7 @@
           id="userId"
           placeholder="아이디"
           :value="userId"
-          @input="userIdInput"
+          @input="$emit('update:userId', $event.target.value)"
         />
       </label>
     </div>
@@ -20,7 +20,7 @@
           id="password"
           data-test="pw"
           placeholder="비밀번호"
-          @input="passwordInput"
+          @input="$emit('update:password', $event.target.value)"
         />
       </label>
     </div>
@@ -36,24 +36,8 @@
 
 <script>
 export default {
-  props: {
-    userId: {
-      type: String,
-      default: '',
-    },
-    password: {
-      type: String,
-      default: '',
-    },
-  },
-  methods: {
-    userIdInput({ target: { value } }) {
-      this.$emit('update:userId', value);
-    },
-    passwordInput({ target: { value } }) {
-      this.$emit('update:password', value);
-    },
-  },
+  props: ['userId', 'password'],
+  emits: ['update:userId', 'update:password'],
 };
 </script>
 

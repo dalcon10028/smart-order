@@ -5,23 +5,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import LoginForm from './LoginForm.vue';
 import UserInfoView from './UserInfoView.vue';
 
-export default {
-  name: 'LoginPage',
-  components: {
-    LoginForm,
-    UserInfoView,
-  },
-  data() {
-    return {
-      userId: '',
-      password: '',
-    };
-  },
-};
+const userId = ref('');
+const password = ref('');
 </script>
 
 <style></style>

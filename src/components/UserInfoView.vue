@@ -9,16 +9,7 @@
 
 <script>
 export default {
-  props: {
-    userId: {
-      type: String,
-      default: '',
-    },
-    password: {
-      type: String,
-      default: '',
-    },
-  },
+  props: ['userId', 'password'],
 };
 </script>
 
