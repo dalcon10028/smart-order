@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Login from '@/views/Login.vue';
+import Login from '@/views/LoginPage.vue';
 import LoginForm from '@/components/molecules/LoginForm.vue';
 import UserInfoView from '@/components/molecules/UserInfoView.vue';
 

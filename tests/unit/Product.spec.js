@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Product from '@/views/Product.vue';
+import Product from '@/views/ProductPage.vue';
 import { ProuctState } from '@/constant/product';
 
 describe('Product.vue', () => {
