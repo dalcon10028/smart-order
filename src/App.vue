@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import BottomNavigation from './components/BottomNavigation.vue';
-import LoginPage from './components/LoginPage.vue';
+import BottomNavigation from '@/components/organisms/BottomNavigation.vue';
+import LoginPage from '@/pages/LoginPage.vue';
 </script>
 
 <style>

@@ -1,11 +1,11 @@
 import { mount } from '@vue/test-utils';
-import LoginPage from './LoginPage.vue';
-import LoginForm from './LoginForm.vue';
-import UserInfoView from './UserInfoView.vue';
+import Login from '@/views/Login.vue';
+import LoginForm from '@/components/molecules/LoginForm.vue';
+import UserInfoView from '@/components/molecules/UserInfoView.vue';
 
-describe('LoginPage.vue', () => {
+describe('Login.vue', () => {
   it('컴포넌트가 마운트되면 LoginForm 컴포넌트와 UserInfoView 컴포넌트가 렌더링 되어야합니다.', () => {
-    const wrapper = mount(LoginPage);
+    const wrapper = mount(Login);
     const loginForm = wrapper.findComponent(LoginForm);
     const userInfoView = wrapper.findComponent(UserInfoView);
 
@@ -14,7 +14,7 @@ describe('LoginPage.vue', () => {
   });
 
   it('로그인 버튼 하단에는 아이디와 비밀번호가 실시간으로 반영이 되어 표시되어야 합니다.', async () => {
-    const wrapper = mount(LoginPage);
+    const wrapper = mount(Login);
     const idInput = wrapper.get('#userId');
     const pwInput = wrapper.get('#password');
     const idView = wrapper.get('[data-test="user-id-view"]');

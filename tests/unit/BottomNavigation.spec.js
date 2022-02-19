@@ -1,6 +1,6 @@
 import { shallowMount, mount } from '@vue/test-utils';
 import { HomeIcon, ShoppingCartIcon, CogIcon } from '@heroicons/vue/solid';
-import BottomNavigation from './BottomNavigation.vue';
+import BottomNavigation from '@/components/organisms/BottomNavigation.vue';
 
 describe('BottomNavigation.vue', () => {
   it('"메뉴" 부분에는 "홈", "장바구니", "설정" 아이콘들이 존재합니다.', () => {
