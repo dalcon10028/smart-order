@@ -1,7 +1,7 @@
 export const ProuctState = {
-  ACTIVE: 'Active',
-  BEST: 'Best',
-  ARCHIVED: 'Archived',
+  ACTIVE: 'ACTIVE',
+  BEST: 'BEST',
+  ARCHIVED: 'ARCHIVED',
 };
 
 export const ProductTemperature = {
@@ -10,14 +10,14 @@ export const ProductTemperature = {
 };
 
 export const ProductSize = {
-  SHORT: 'Short',
-  TALL: 'Tall',
-  GRANDE: 'Grande',
-  VENTI: 'Venti',
+  SHORT: 'SHORT',
+  TALL: 'TALL',
+  GRANDE: 'GRANDE',
+  VENTI: 'VENTI',
 };
 
 export const ProductCup = {
-  SHOP: '매장컵',
-  INDIVIDUAL: '개인컵',
-  DISPOSABLE: '일회용컵',
+  SHOP: 'SHOP',
+  INDIVIDUAL: 'INDIVIDUAL',
+  DISPOSABLE: 'DISPOSABLE',
 };

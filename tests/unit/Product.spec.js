@@ -1,16 +1,15 @@
 import { shallowMount } from '@vue/test-utils';
 import Product from '@/views/ProductPage.vue';
-import { ProuctState } from '@/constant/product';
 
 describe('Product.vue', () => {
   const mockProduct = {
-    image_url: '@/assets/images/latte.jpeg',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg',
     title: '카페 라떼',
     state: 'BEST',
     discription:
       '풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품을 살짝 얹은 대표적인 카페 라떼',
     price: 5000,
-    size_list: ['short', 'tall', 'grande', 'venti'],
+    size_list: ['SHORT', 'TALL', 'GRANDE', 'VENTI'],
     personal_options: [{ name: '에스프레소 샷', price: 500, count: 1, defaultCount: 1 }],
   };
   it('음료 상세 정보 페이지의 최상단에는 음료의 사진이 표시가 되어야 합니다.', () => {
@@ -53,7 +52,7 @@ describe('Product.vue', () => {
     const wrapper = shallowMount(Product);
     const productState = wrapper.get('[data-test="product-state"]');
 
-    expect(productState.text()).toEqual(ProuctState.BEST);
+    expect(productState.text()).toEqual('Best');
     expect(productState.classes()).toContain('text-red-600');
   });
 
@@ -67,8 +66,9 @@ describe('Product.vue', () => {
   it('음료 설명 하단에는 해당 음료의 단가가 표시가 됩니다.', () => {
     const wrapper = shallowMount(Product);
     const productPrice = wrapper.get('[data-test="product-price"]');
+    const toWon = num => `${num.toLocaleString('ko-KR')} 원`;
 
-    expect(productPrice.text()).toEqual(mockProduct.price);
+    expect(productPrice.text()).toEqual(toWon(mockProduct.price));
   });
 
   it('2행 좌측에는 해당 음료를 찜할 수 있는 버튼이 존재합니다.', () => {
@@ -90,5 +90,26 @@ describe('Product.vue', () => {
     const directOrderButton = wrapper.get('[data-test="direct-order-button"]');
 
     expect(directOrderButton.exists()).toBeTruthy();
+  });
+
+  it('1행 좌측에는 몇 잔 주문할지를 설정할 수 있는 컨트롤이 제공되어야 합니다.', () => {
+    const wrapper = shallowMount(Product);
+    const amountControl = wrapper.get('[data-test="amount-control"]');
+
+    expect(amountControl.exists()).toBeTruthy();
+  });
+
+  it('1행 우측에는 퍼스널 옵션과 수량을 반영한 최종 가격이 표시가 되어야 합니다.', () => {
+    const wrapper = shallowMount(Product);
+    const totalPriceView = wrapper.get('[data-test="total-price"]');
+
+    expect(totalPriceView.exists()).toBeTruthy();
+  });
+
+  it('계산식) ( 음료 단가 + 퍼스널 옵션 단가 * 퍼스널 옵션 갯수) * 음료 갯수', async () => {
+    const wrapper = shallowMount(Product);
+    const tatalPrice = wrapper.get('[data-test="total-price"]').text();
+
+    expect(tatalPrice).toEqual(wrapper.vm.totalPrice);
   });
 });
