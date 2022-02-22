@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Product from '@/views/ProductPage.vue';
+import Product from '@/views/ProductPage/ProductPage.vue';
 
 describe('Product.vue', () => {
   const mockProduct = {

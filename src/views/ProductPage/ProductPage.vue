@@ -107,7 +107,7 @@
 import { computed, ref } from 'vue';
 import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import { ProuctState } from '@/constant/product';
-import ProductOptions from '@/components/molecules/ProductOptions.vue';
+import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
 
 const mockProduct = {
   image_url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Latte_art_3.jpg',

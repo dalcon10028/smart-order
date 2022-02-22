@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import Login from '@/views/LoginPage.vue';
-import LoginForm from '@/components/molecules/LoginForm.vue';
-import UserInfoView from '@/components/molecules/UserInfoView.vue';
+import Login from '@/views/LoginPage/LoginPage.vue';
+import LoginForm from '@/components/molecules/LoginForm/LoginForm.vue';
+import UserInfoView from '@/components/molecules/UserInfoView/UserInfoView.vue';
 
 describe('Login.vue', () => {
   it('컴포넌트가 마운트되면 LoginForm 컴포넌트와 UserInfoView 컴포넌트가 렌더링 되어야합니다.', () => {

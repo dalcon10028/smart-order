@@ -7,7 +7,7 @@
 
 <script setup>
 import BottomNavigation from '@/components/organisms/BottomNavigation.vue';
-import ProductPage from '@/views/ProductPage.vue';
+import ProductPage from '@/views/ProductPage/ProductPage.vue';
 </script>
 
 <style>

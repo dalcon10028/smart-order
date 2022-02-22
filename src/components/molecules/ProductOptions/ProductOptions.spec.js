@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import ProductOptions from '@/components/molecules/ProductOptions.vue';
+import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
 import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
 
 describe('ProductOptions.vue', () => {

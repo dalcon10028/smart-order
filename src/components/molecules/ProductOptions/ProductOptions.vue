@@ -198,7 +198,7 @@
 
 <script>
 import { computed } from 'vue';
-import CupIcon from '@/components/atoms/CupIcon.vue';
+import CupIcon from '@/components/atoms/CupIcon/CupIcon.vue';
 import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
 
 export default {
