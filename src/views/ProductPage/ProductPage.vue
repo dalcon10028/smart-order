@@ -1,38 +1,38 @@
 <template>
-  <section class="text-gray-700 body-font overflow-hidden">
+  <section class="overflow-hidden text-gray-700 body-font">
     <div class="container px-5 py-4 mx-auto mb-20">
       <div class="flex justify-between py-2">
-        <button class="text-white w-7 rounded-full bg-gray-600 p-1" data-test="back-button">
+        <button class="p-1 text-white bg-gray-600 rounded-full w-7" data-test="back-button">
           <chevron-left-icon />
         </button>
-        <button class="text-white w-7 rounded-full bg-gray-600 p-1" data-test="share-button">
+        <button class="p-1 text-white bg-gray-600 rounded-full w-7" data-test="share-button">
           <share-icon />
         </button>
       </div>
-      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="flex flex-wrap mx-auto lg:w-4/5">
         <img
-          class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+          class="object-cover object-center w-full border border-gray-200 rounded lg:w-1/2"
           :alt="title"
           :src="imageUrl"
           data-test="product-image"
         />
-        <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <div class="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:mt-0">
           <h1
-            class="text-gray-900 inline text-3xl title-font font-medium mb-1"
+            class="inline mb-1 text-3xl font-medium text-gray-900 title-font"
             data-test="product-title"
           >
             {{ title }}
           </h1>
-          <span class="align-top text-red-600 ml-1" v-if="isBest" data-test="product-state"
+          <span class="ml-1 text-red-600 align-top" v-if="isBest" data-test="product-state"
             >Best</span
           >
           <p class="leading-relaxed" data-test="product-discription">
             {{ discription }}
           </p>
-          <div class="container mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+          <div class="container items-center pb-5 mt-6 mb-5 border-b-2 border-gray-200">
             <div class="row">
               <span
-                class="ml-auto title-font font-bold text-xl text-gray-900"
+                class="ml-auto text-xl font-bold text-gray-900 title-font"
                 data-test="product-price"
                 >{{ productPrice }}</span
               >
@@ -46,51 +46,31 @@
             />
           </div>
           <div class="flex mb-3">
-            <div class="inline-flex flex-row h-7 rounded-lg" data-test="amount-control">
-              <button
-                class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-7 rounded-l cursor-pointer outline-none"
-                @click="productCount > 1 ? productCount-- : ''"
-              >
-                <span class="m-auto text-2xl font-thin">−</span>
-              </button>
-              <label for="product-count">
-                <input
-                  id="product-count"
-                  type="number"
-                  class="text-center w-7 h-7 bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700 outline-none"
-                  name="custom-input-number"
-                  :value="productCount"
-                />
-              </label>
-              <button
-                class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-7 rounded-r cursor-pointer"
-                @click="productCount++"
-              >
-                <span class="m-auto text-2xl font-thin">+</span>
-              </button>
+            <div class="rounded-lg" data-test="amount-control">
+              <counter v-model="productCount" min="1" id="product-count" />
             </div>
             <div class="ml-auto">
-              <span class="title-font font-medium text-2xl text-gray-900" data-test="total-price">{{
+              <span class="text-2xl font-medium text-gray-900 title-font" data-test="total-price">{{
                 totalPrice
               }}</span>
             </div>
           </div>
           <div class="flex">
             <button
-              class="rounded-full w-8 h-8 bg-none p-0 border-0 inline-flex items-center justify-center text-gray-black hover:text-red-500 ml-4"
+              class="inline-flex items-center justify-center w-8 h-8 p-0 ml-4 border-0 rounded-full bg-none text-gray-black hover:text-red-500"
               data-test="wish-button"
             >
               <heart-icon />
             </button>
             <div class="flex ml-auto">
               <button
-                class="text-indigo-600 border border-indigo-500 py-2 px-6 hover:bg-indigo-600 hover:text-white rounded-3xl"
+                class="px-6 py-2 text-indigo-600 border border-indigo-500 hover:bg-indigo-600 hover:text-white rounded-3xl"
                 data-test="cart-button"
               >
                 담기
               </button>
               <button
-                class="ml-2 text-white bg-indigo-500 border-0 py-2 px-6 hover:bg-indigo-600 rounded-3xl"
+                class="px-6 py-2 ml-2 text-white bg-indigo-500 border-0 hover:bg-indigo-600 rounded-3xl"
                 data-test="direct-order-button"
               >
                 주문하기
@@ -107,6 +87,7 @@
 import { computed, ref } from 'vue';
 import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import { ProuctState } from '@/constant/product';
+import Counter from '@/components/molecules/Counter/Counter.vue';
 import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
 
 const mockProduct = {
@@ -121,7 +102,7 @@ const mockProduct = {
 };
 
 export default {
-  components: { HeartIcon, ChevronLeftIcon, ShareIcon, ProductOptions },
+  components: { HeartIcon, ChevronLeftIcon, ShareIcon, ProductOptions, Counter },
   setup() {
     const toWon = num => `${num.toLocaleString('ko-KR')} 원`;
 

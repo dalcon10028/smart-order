@@ -1,9 +1,9 @@
 <template>
-  <div class="row mt-3">
-    <div class="md:w-fit flex justify-center" role="group" data-test="hot-or-ice">
+  <div class="mt-3 row">
+    <div class="flex justify-center md:w-fit" role="group" data-test="hot-or-ice">
       <button
         type="button"
-        class="py-2 px-4 text-lg w-40 font-medium rounded-l-2xl border border-gray-200"
+        class="w-40 px-4 py-2 text-lg font-medium border border-gray-200 rounded-l-2xl"
         :class="{
           'bg-red-700': isHot,
           'text-white': isHot,
@@ -19,7 +19,7 @@
       </button>
       <button
         type="button"
-        class="py-2 px-4 text-lg w-40 font-medium rounded-r-2xl border border-gray-200"
+        class="w-40 px-4 py-2 text-lg font-medium border border-gray-200 rounded-r-2xl"
         :class="{
           'bg-blue-700': isIce,
           'text-white': isIce,
@@ -35,13 +35,13 @@
       </button>
     </div>
   </div>
-  <div class="row mt-3">
-    <h3 class="title-font font-medium text-lg">사이즈</h3>
+  <div class="mt-3 row">
+    <h3 class="text-lg font-medium title-font">사이즈</h3>
     <div class="flex justify-between mt-2" data-test="size-option">
       <button
         @click="$emit('update:size', SHORT)"
         v-if="sizeList.find(sizeName => sizeName === SHORT)"
-        class="border border-gray-200 rounded-lg w-20 h-20"
+        class="w-20 h-20 border border-gray-200 rounded-lg"
         :class="{
           'text-gray-700': size !== SHORT,
           'hover:bg-indigo-500': size !== SHORT,
@@ -53,13 +53,13 @@
           'fill-white': size === SHORT,
         }"
       >
-        <cup-icon class="mx-auto h-10" :size="30" />
+        <cup-icon class="h-10 mx-auto" :size="30" />
         <span>Short</span>
       </button>
       <button
         @click="$emit('update:size', TALL)"
         v-if="sizeList.find(sizeName => sizeName === TALL)"
-        class="border border-gray-200 rounded-lg w-20 h-20"
+        class="w-20 h-20 border border-gray-200 rounded-lg"
         :class="{
           'text-gray-700': size !== TALL,
           'hover:bg-indigo-500': size !== TALL,
@@ -71,13 +71,13 @@
           'fill-white': size === TALL,
         }"
       >
-        <cup-icon class="mx-auto h-10" :size="35" />
+        <cup-icon class="h-10 mx-auto" :size="35" />
         <span>Tall</span>
       </button>
       <button
         @click="$emit('update:size', GRANDE)"
         v-if="sizeList.find(sizeName => sizeName === GRANDE)"
-        class="border border-gray-200 rounded-lg w-20 h-20"
+        class="w-20 h-20 border border-gray-200 rounded-lg"
         :class="{
           'text-gray-700': size !== GRANDE,
           'hover:bg-indigo-500': size !== GRANDE,
@@ -89,13 +89,13 @@
           'fill-white': size === GRANDE,
         }"
       >
-        <cup-icon class="mx-auto h-10" :size="40" />
+        <cup-icon class="h-10 mx-auto" :size="40" />
         <span>Grande</span>
       </button>
       <button
         @click="$emit('update:size', VENTI)"
         v-if="sizeList.find(sizeName => sizeName === VENTI)"
-        class="border border-gray-200 rounded-lg w-20 h-20"
+        class="w-20 h-20 border border-gray-200 rounded-lg"
         :class="{
           'text-gray-700': size !== VENTI,
           'hover:bg-indigo-500': size !== VENTI,
@@ -107,18 +107,18 @@
           'fill-white': size === VENTI,
         }"
       >
-        <cup-icon class="mx-auto h-10" :size="45" />
+        <cup-icon class="h-10 mx-auto" :size="45" />
         <span>Venti</span>
       </button>
     </div>
   </div>
-  <div class="row mt-3">
-    <h3 class="title-font font-medium text-lg">컵 선택</h3>
+  <div class="mt-3 row">
+    <h3 class="text-lg font-medium title-font">컵 선택</h3>
     <div class="flex justify-center mt-3">
       <div class="inline-flex" role="group" aria-label="Button group" data-test="cup-option">
         <button
           @click="$emit('update:cup', SHOP)"
-          class="h-10 w-28 px-5 transition-colors duration-150 border border-gray-200 rounded-l-lg"
+          class="h-10 px-5 transition-colors duration-150 border border-gray-200 rounded-l-lg w-28"
           :class="{
             'text-white': isShop,
             'bg-indigo-500': isShop,
@@ -132,7 +132,7 @@
         </button>
         <button
           @click="$emit('update:cup', INDIVIDUAL)"
-          class="h-10 w-28 px-5 transition-colors duration-150 border border-gray-200"
+          class="h-10 px-5 transition-colors duration-150 border border-gray-200 w-28"
           :class="{
             'text-white': isIndividual,
             'bg-indigo-500': isIndividual,
@@ -146,7 +146,7 @@
         </button>
         <button
           @click="$emit('update:cup', DISPOSABLE)"
-          class="h-10 w-28 px-5 transition-colors duration-150 border border-gray-200 rounded-r-lg"
+          class="h-10 px-5 transition-colors duration-150 border border-gray-200 rounded-r-lg w-28"
           :class="{
             'text-white': isDisposable,
             'bg-indigo-500': isDisposable,
@@ -161,35 +161,17 @@
       </div>
     </div>
   </div>
-  <div class="row mt-3">
-    <h3 class="title-font font-medium text-lg">퍼스널 옵션</h3>
+  <div class="mt-3 row">
+    <h3 class="text-lg font-medium title-font">퍼스널 옵션</h3>
     <ul data-test="personal-option">
       <li class="flex mt-3" v-for="personalOption in personalOptions" :key="personalOption.name">
         <span class="leading-7">{{ personalOption.name }}</span>
-        <div class="ml-auto inline-flex flex-row h-7 rounded-lg">
-          <button
-            @click="
-              personalOption.count > personalOption.defaultCount ? personalOption.count-- : null
-            "
-            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-7 rounded-l cursor-pointer outline-none"
-          >
-            <span class="m-auto text-2xl font-thin">−</span>
-          </button>
-          <label :for="personalOption.name">
-            <input
-              :id="personalOption.name"
-              type="number"
-              class="text-center w-7 h-7 bg-gray-300 font-semibold text-md hover:text-black focus:text-black md:text-basecursor-default flex items-center text-gray-700 outline-none"
-              name="custom-input-number"
-              :value="personalOption.count"
-            />
-          </label>
-          <button
-            @click="personalOption.count++"
-            class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-7 rounded-r cursor-pointer"
-          >
-            <span class="m-auto text-2xl font-thin">+</span>
-          </button>
+        <div class="ml-auto">
+          <counter
+            v-model="personalOption.count"
+            :min="personalOption.defaultCount"
+            :id="personalOption.name"
+          />
         </div>
       </li>
     </ul>
@@ -199,11 +181,13 @@
 <script>
 import { computed } from 'vue';
 import CupIcon from '@/components/atoms/CupIcon/CupIcon.vue';
+import Counter from '@/components/molecules/Counter/Counter.vue';
 import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
 
 export default {
   components: {
     CupIcon,
+    Counter,
   },
   props: {
     hotOrIce: {
@@ -248,11 +232,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-</style>
