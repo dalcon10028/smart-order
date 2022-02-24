@@ -7,8 +7,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import LoginForm from './LoginForm.vue';
-import UserInfoView from './UserInfoView.vue';
+import LoginForm from '@/components/molecules/LoginForm/LoginForm.vue';
+import UserInfoView from '@/components/molecules/UserInfoView/UserInfoView.vue';
 
 const userId = ref('');
 const password = ref('');

@@ -1,13 +1,13 @@
 <template>
   <div class="w-full h-screen">
-    <login-page />
+    <product-page />
     <bottom-navigation />
   </div>
 </template>
 
 <script setup>
-import BottomNavigation from './components/BottomNavigation.vue';
-import LoginPage from './components/LoginPage.vue';
+import BottomNavigation from '@/components/organisms/BottomNavigation.vue';
+import ProductPage from '@/views/ProductPage/ProductPage.vue';
 </script>
 
 <style>
