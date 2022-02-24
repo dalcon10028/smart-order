@@ -1,234 +1,126 @@
 <template>
   <div class="mt-3 row">
     <div class="flex justify-center md:w-fit" role="group" data-test="hot-or-ice">
-      <button
-        type="button"
-        class="w-40 px-4 py-2 text-lg font-medium border border-gray-200 rounded-l-2xl"
-        :class="{
-          'bg-red-700': isHot,
-          'text-white': isHot,
-          'text-gray-900': !isHot,
-          'bg-white': !isHot,
-          'hover:bg-gray-100': !isHot,
-          'hover:text-red-700': !isHot,
-        }"
-        @click="$emit('update:hotOrIce', HOT)"
-        data-test="hot"
-      >
-        HOT
-      </button>
-      <button
-        type="button"
-        class="w-40 px-4 py-2 text-lg font-medium border border-gray-200 rounded-r-2xl"
-        :class="{
-          'bg-blue-700': isIce,
-          'text-white': isIce,
-          'text-gray-900': !isIce,
-          'bg-white': !isIce,
-          'hover:bg-gray-100': !isIce,
-          'hover:text-blud-700': !isIce,
-        }"
-        @click="$emit('update:hotOrIce', ICE)"
-        data-test="ice"
-      >
-        ICE
-      </button>
+      <label :for="ProductTemperature.HOT">
+        <input
+          name="hot-or-ice"
+          class="hidden peer"
+          type="radio"
+          :id="ProductTemperature.HOT"
+          data-test="temperature"
+          @change="$emit('update:hotOrIce', ProductTemperature.HOT)"
+        />
+        <div
+          class="w-40 px-4 py-2 text-lg font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-l-2xl hover:bg-gray-100 hover:text-red-700 peer-checked:bg-red-700 peer-checked:text-white"
+        >
+          HOT
+        </div>
+      </label>
+      <label :for="ProductTemperature.ICE">
+        <input
+          name="hot-or-ice"
+          class="hidden peer"
+          type="radio"
+          :id="ProductTemperature.ICE"
+          data-test="temperature"
+          @change="$emit('update:hotOrIce', ProductTemperature.ICE)"
+        />
+        <div
+          class="w-40 px-4 py-2 text-lg font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-r-2xl peer-checked:bg-blue-700 peer-checked:text-white hover:bg-gray-100 hover:text-blue-700"
+        >
+          ICE
+        </div>
+      </label>
     </div>
   </div>
   <div class="mt-3 row">
     <h3 class="text-lg font-medium title-font">사이즈</h3>
     <div class="flex justify-between mt-2" data-test="size-option">
-      <button
-        @click="$emit('update:size', SHORT)"
-        v-if="sizeList.find(sizeName => sizeName === SHORT)"
-        class="w-20 h-20 border border-gray-200 rounded-lg"
-        :class="{
-          'text-gray-700': size !== SHORT,
-          'hover:bg-indigo-500': size !== SHORT,
-          'hover:text-white': size !== SHORT,
-          'fill-gray-700': size !== SHORT,
-          'hover:fill-white': size !== SHORT,
-          'bg-indigo-500': size === SHORT,
-          'text-white': size === SHORT,
-          'fill-white': size === SHORT,
-        }"
-      >
-        <cup-icon class="h-10 mx-auto" :size="30" />
-        <span>Short</span>
-      </button>
-      <button
-        @click="$emit('update:size', TALL)"
-        v-if="sizeList.find(sizeName => sizeName === TALL)"
-        class="w-20 h-20 border border-gray-200 rounded-lg"
-        :class="{
-          'text-gray-700': size !== TALL,
-          'hover:bg-indigo-500': size !== TALL,
-          'hover:text-white': size !== TALL,
-          'fill-gray-700': size !== TALL,
-          'hover:fill-white': size !== TALL,
-          'bg-indigo-500': size === TALL,
-          'text-white': size === TALL,
-          'fill-white': size === TALL,
-        }"
-      >
-        <cup-icon class="h-10 mx-auto" :size="35" />
-        <span>Tall</span>
-      </button>
-      <button
-        @click="$emit('update:size', GRANDE)"
-        v-if="sizeList.find(sizeName => sizeName === GRANDE)"
-        class="w-20 h-20 border border-gray-200 rounded-lg"
-        :class="{
-          'text-gray-700': size !== GRANDE,
-          'hover:bg-indigo-500': size !== GRANDE,
-          'hover:text-white': size !== GRANDE,
-          'fill-gray-700': size !== GRANDE,
-          'hover:fill-white': size !== GRANDE,
-          'bg-indigo-500': size === GRANDE,
-          'text-white': size === GRANDE,
-          'fill-white': size === GRANDE,
-        }"
-      >
-        <cup-icon class="h-10 mx-auto" :size="40" />
-        <span>Grande</span>
-      </button>
-      <button
-        @click="$emit('update:size', VENTI)"
-        v-if="sizeList.find(sizeName => sizeName === VENTI)"
-        class="w-20 h-20 border border-gray-200 rounded-lg"
-        :class="{
-          'text-gray-700': size !== VENTI,
-          'hover:bg-indigo-500': size !== VENTI,
-          'hover:text-white': size !== VENTI,
-          'fill-gray-700': size !== VENTI,
-          'hover:fill-white': size !== VENTI,
-          'bg-indigo-500': size === VENTI,
-          'text-white': size === VENTI,
-          'fill-white': size === VENTI,
-        }"
-      >
-        <cup-icon class="h-10 mx-auto" :size="45" />
-        <span>Venti</span>
-      </button>
+      <label :for="size.name" v-for="size in sizeList" :key="size.name">
+        <input
+          name="cup-size"
+          type="radio"
+          :id="size.name"
+          class="hidden peer"
+          @change="$emit('update:cupSize', ProductSize[size.name.toUpperCase()])"
+        />
+        <div
+          class="w-20 h-20 text-center text-gray-700 border border-gray-200 rounded-lg peer-checked:text-white peer-checked:bg-indigo-500 hover:bg-indigo-500 hover:text-white fill-gray-700 hover:fill-white peer-checked:fill-white"
+        >
+          <cup-icon class="h-10 mx-auto" :size="size.iconSize" />
+          <span>{{ size.name }}</span>
+        </div>
+      </label>
     </div>
   </div>
   <div class="mt-3 row">
     <h3 class="text-lg font-medium title-font">컵 선택</h3>
     <div class="flex justify-center mt-3">
-      <div class="inline-flex" role="group" aria-label="Button group" data-test="cup-option">
-        <button
-          @click="$emit('update:cup', SHOP)"
-          class="h-10 px-5 transition-colors duration-150 border border-gray-200 rounded-l-lg w-28"
-          :class="{
-            'text-white': isShop,
-            'bg-indigo-500': isShop,
-            'text-gray-700': !isShop,
-            'bg-white': !isShop,
-            'hover:bg-indigo-500': !isShop,
-            'hover:text-white': !isShop,
-          }"
+      <label :for="type.name" v-for="type in cupTypes" :key="type.name">
+        <input
+          name="cup-type"
+          type="radio"
+          :id="type.name"
+          data-test="cup-type"
+          class="hidden peer"
+          @change="$emit('update:cupType', type.name)"
+        />
+        <div
+          class="h-10 px-5 leading-10 text-center text-gray-700 transition-colors duration-150 bg-white border border-gray-200 peer-checked:text-white peer-checked:bg-indigo-500 hover:bg-indigo-500 hover:text-white w-28"
+          :class="type.border"
         >
-          매장컵
-        </button>
-        <button
-          @click="$emit('update:cup', INDIVIDUAL)"
-          class="h-10 px-5 transition-colors duration-150 border border-gray-200 w-28"
-          :class="{
-            'text-white': isIndividual,
-            'bg-indigo-500': isIndividual,
-            'text-gray-700': !isIndividual,
-            'bg-white': !isIndividual,
-            'hover:bg-indigo-500': !isIndividual,
-            'hover:text-white': !isIndividual,
-          }"
-        >
-          개인컵
-        </button>
-        <button
-          @click="$emit('update:cup', DISPOSABLE)"
-          class="h-10 px-5 transition-colors duration-150 border border-gray-200 rounded-r-lg w-28"
-          :class="{
-            'text-white': isDisposable,
-            'bg-indigo-500': isDisposable,
-            'text-gray-700': !isDisposable,
-            'bg-white': !isDisposable,
-            'hover:bg-indigo-500': !isDisposable,
-            'hover:text-white': !isDisposable,
-          }"
-        >
-          일회용컵
-        </button>
-      </div>
+          {{ type.label }}
+        </div>
+      </label>
     </div>
   </div>
   <div class="mt-3 row">
     <h3 class="text-lg font-medium title-font">퍼스널 옵션</h3>
     <ul data-test="personal-option">
-      <li class="flex mt-3" v-for="personalOption in personalOptions" :key="personalOption.name">
-        <span class="leading-7">{{ personalOption.name }}</span>
+      <li class="flex mt-3" v-for="option in personalOptions" :key="option.optionNo">
+        <span class="leading-7">{{ option.name }}</span>
         <div class="ml-auto">
-          <counter
-            v-model="personalOption.count"
-            :min="personalOption.defaultCount"
-            :id="personalOption.name"
-          />
+          <counter v-model="option.quantity" :min="option.baseQuantity" :id="option.name" />
         </div>
       </li>
     </ul>
   </div>
 </template>
 
-<script>
-import { computed } from 'vue';
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 import CupIcon from '@/components/atoms/CupIcon/CupIcon.vue';
 import Counter from '@/components/molecules/Counter/Counter.vue';
 import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
 
-export default {
-  components: {
-    CupIcon,
-    Counter,
+defineProps({
+  hotOrIce: {
+    type: String,
+    required: true,
   },
-  props: {
-    hotOrIce: {
-      type: String,
-      required: true,
-    },
-    sizeList: {
-      type: Array,
-      required: true,
-    },
-    size: {
-      type: String,
-      required: true,
-    },
-    cup: {
-      type: String,
-      required: true,
-    },
-    personalOptions: {
-      type: Array,
-      required: true,
-    },
+  sizeList: {
+    type: Array,
+    required: true,
   },
-  emits: ['update:hotOrIce', 'update:size', 'update:cup'],
-  setup(props) {
-    const isHot = computed(() => props.hotOrIce === ProductTemperature.HOT);
-    const isIce = computed(() => props.hotOrIce === ProductTemperature.ICE);
-    const isShop = computed(() => props.cup === ProductCup.SHOP);
-    const isIndividual = computed(() => props.cup === ProductCup.INDIVIDUAL);
-    const isDisposable = computed(() => props.cup === ProductCup.DISPOSABLE);
+  cupSize: {
+    type: String,
+    required: true,
+  },
+  cupType: {
+    type: String,
+    required: true,
+  },
+  personalOptions: {
+    type: Array,
+    required: true,
+  },
+});
 
-    return {
-      isHot,
-      isIce,
-      isShop,
-      isIndividual,
-      isDisposable,
-      ...ProductTemperature,
-      ...ProductSize,
-      ...ProductCup,
-    };
-  },
-};
+defineEmits(['update:hotOrIce', 'update:cupSize', 'update:cupType']);
+
+const cupTypes = [
+  { label: '매장컵', name: ProductCup.SHOP, border: 'rounded-l-lg' },
+  { label: '개인컵', name: ProductCup.INDIVIDUAL, border: '' },
+  { label: '일회용컵', name: ProductCup.DISPOSABLE, border: 'rounded-r-lg' },
+];
 </script>
