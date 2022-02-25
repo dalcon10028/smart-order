@@ -57,3 +57,36 @@ export const fetchProduct = () =>
       ],
     },
   });
+
+export const fetchCart = () =>
+  Promise.resolve([
+    {
+      imageUrl:
+        'http://whalesbean.com/web/upload/NNEditor/20170722/ED81ACEAB8B0EBB380ED9998_01_231EC9790EC8AA4ED9484EBA088EC868C2.jpg',
+      name: '에스프레소',
+      engName: 'Espresso',
+      price: 4000,
+      quantity: 2,
+      options: {
+        hotOrIce: 'HOT',
+        cupSize: 'Tall',
+        cupType: '매장컵',
+        personal: [
+          {
+            optionNo: 1,
+            quantity: 1,
+            name: '에스프레소 샷',
+            unitPrice: 500,
+            baseQuantity: 1,
+          },
+          {
+            optionNo: 2,
+            quantity: 0,
+            name: '시럽',
+            unitPrice: 300,
+            baseQuantity: 0,
+          },
+        ],
+      },
+    },
+  ]);
