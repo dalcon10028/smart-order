@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import BottomNavigation from '@/components/organisms/BottomNavigation.vue';
 import ProductListPage from '@/views/ProductListPage/ProductListPage.vue';
+import BottomNavigation from '@/components/organisms/BottomNavigation/BottomNavigation.vue';
 </script>
 
 <style>
