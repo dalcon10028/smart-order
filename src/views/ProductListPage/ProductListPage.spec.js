@@ -1,5 +1,6 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
-import { fetchProductList } from '@/api/product';
+import { fetchProductList } from '@/api';
+import { displayPrice } from '@/utils/format';
 import { ProuctState } from '@/constant/product';
 import ProductListPage from './ProductListPage.vue';
 
@@ -7,6 +8,7 @@ describe('ProductListPage.vue', () => {
   it('음료 목록 페이지 상단에는 현재 표시하고 있는 음료의 종류를 표시하는 공간이 존재합니다.', async () => {
     const response = await fetchProductList();
     const wrapper = shallowMount(ProductListPage);
+    await flushPromises();
     const productType = wrapper.find('[data-test="product-type"]');
 
     expect(productType.text()).toEqual(response.productType);
@@ -37,13 +39,23 @@ describe('ProductListPage.vue', () => {
     await flushPromises();
     const firstProductEngName = wrapper.find('[data-test="product-eng-name"]');
 
-    expect(firstProductEngName.attributes('src')).toEqual(productList[0].engName);
+    expect(firstProductEngName.text()).toEqual(productList[0].engName);
+  });
+
+  it('음료 목록 페이지에 표시되는 상품 정보에는 상품의 상품가격이 표시가 되어야 합니다.', async () => {
+    const { productList } = await fetchProductList();
+    const wrapper = shallowMount(ProductListPage);
+    await flushPromises();
+    const firstProductPrice = wrapper.find('[data-test="product-price"]');
+
+    expect(firstProductPrice.text()).toEqual(displayPrice(productList[0].price));
   });
 
   it('만약 해당 상품이 신제품일 경우, 상품명 우측에 녹색 위첨자로 New가 표시되어야 합니다.', async () => {
     const { productList } = await fetchProductList();
     const newProductIndex = productList.findIndex(product => product.isNew);
     const wrapper = shallowMount(ProductListPage);
+    await flushPromises();
 
     const newProduct = wrapper.findAll('[data-test="product"]').at(newProductIndex);
     expect(newProduct.find('[data-test="product-state"]').text()).toEqual(ProuctState.NEW);
@@ -53,6 +65,7 @@ describe('ProductListPage.vue', () => {
     const { productList } = await fetchProductList();
     const hotProductIndex = productList.findIndex(product => product.isHot);
     const wrapper = shallowMount(ProductListPage);
+    await flushPromises();
 
     const hotProduct = wrapper.findAll('[data-test="product"]').at(hotProductIndex);
     expect(hotProduct.find('[data-test="product-state"]').text()).toEqual(ProuctState.HOT);
