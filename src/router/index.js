@@ -9,6 +9,10 @@ const routes = [
   },
   ...ProductRoutes,
   ...UserRoutes,
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/ErrorPage/NotFoundPage.vue'),
+  },
 ];
 
 const router = createRouter({
