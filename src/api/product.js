@@ -81,7 +81,7 @@ export const fetchCart = () =>
           },
           {
             optionNo: 2,
-            quantity: 0,
+            quantity: 2,
             name: '시럽',
             unitPrice: 300,
             baseQuantity: 0,

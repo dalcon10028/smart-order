@@ -1,8 +1,10 @@
 <template>
   <div class="w-full h-screen">
-    <transition name="fade">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <bottom-navigation />
   </div>
 </template>
@@ -18,8 +20,7 @@ import BottomNavigation from '@/components/organisms/BottomNavigation/BottomNavi
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active {
   transition: opacity 0.5s ease;
 }
 

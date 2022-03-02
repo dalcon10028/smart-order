@@ -22,7 +22,6 @@ export const displayPrice = price => `${price.toLocaleString()} 원`;
  * @returns {string}
  */
 export const optionsFormat = options =>
-  Object.entries(options)
-    // eslint-disable-next-line no-unused-vars
-    .map(([k, v]) => (Array.isArray(v) ? '' : v))
-    .join('|');
+  Object.values(options)
+    .filter(v => !Array.isArray(v))
+    .join(' | ');
