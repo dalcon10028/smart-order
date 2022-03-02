@@ -88,7 +88,7 @@ import { ref, onMounted, reactive, computed } from 'vue';
 import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
 import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
-import { fetchProduct } from '@/api';
+import { ProductRepository } from '@/api';
 import { displayPrice } from '@/utils/format';
 
 const product = ref({
@@ -133,6 +133,6 @@ const order = reactive({
 });
 
 onMounted(async () => {
-  product.value = await fetchProduct().then(data => data.product);
+  product.value = await ProductRepository.fetchProduct().then(data => data.product);
 });
 </script>

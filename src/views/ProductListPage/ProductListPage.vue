@@ -54,14 +54,14 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
-import { fetchProductList } from '@/api';
+import { ProductRepository } from '@/api';
 import { displayPrice } from '@/utils/format';
 import { ProductState } from '@/constant/product';
 
 const state = reactive({});
 
 onMounted(async () => {
-  const { productType, productList } = await fetchProductList();
+  const { productType, productList } = await ProductRepository.fetchProductList();
   state.productType = productType;
   state.productList = productList;
 });

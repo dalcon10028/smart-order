@@ -1,5 +1,5 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
-import { fetchCart } from '@/api';
+import { OrderRepository } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
 import CartPage from './CartPage.vue';
 
@@ -20,7 +20,7 @@ describe('CartPage.vue', () => {
   let wrapper;
 
   beforeEach(async () => {
-    productList = await fetchCart();
+    productList = await OrderRepository.fetchCart();
     wrapper = shallowMount(CartPage);
     await flushPromises();
   });

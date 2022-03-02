@@ -1,10 +1,10 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
-import { fetchProduct } from '@/api/product';
+import { ProductRepository } from '@/api';
 import ProductPage from './ProductPage.vue';
 
 describe('ProductPage.vue', () => {
   it('음료 상세 정보 페이지의 최상단에는 음료의 사진이 표시가 되어야 합니다.', async () => {
-    const { product } = await fetchProduct();
+    const { product } = await ProductRepository.fetchProduct();
     const wrapper = shallowMount(ProductPage);
 
     await flushPromises();
@@ -27,7 +27,7 @@ describe('ProductPage.vue', () => {
   });
 
   it('음료의 이름이 표시가 됩니다.', async () => {
-    const { product } = await fetchProduct();
+    const { product } = await ProductRepository.fetchProduct();
     const wrapper = shallowMount(ProductPage);
     await flushPromises();
     const productTitle = wrapper.get('[data-test="product-title"]');
@@ -50,7 +50,7 @@ describe('ProductPage.vue', () => {
   });
 
   it('음료 이름 하단에는 음료에 대한 설명이 표시가 됩니다.', async () => {
-    const { product } = await fetchProduct();
+    const { product } = await ProductRepository.fetchProduct();
     const wrapper = shallowMount(ProductPage);
     await flushPromises();
     const productDiscription = wrapper.get('[data-test="product-discription"]');
@@ -58,7 +58,7 @@ describe('ProductPage.vue', () => {
   });
 
   it('음료 설명 하단에는 해당 음료의 단가가 표시가 됩니다.', async () => {
-    const { product } = await fetchProduct();
+    const { product } = await ProductRepository.fetchProduct();
     const wrapper = shallowMount(ProductPage);
     await flushPromises();
     const productPrice = wrapper.get('[data-test="product-price"]');
@@ -99,7 +99,7 @@ describe('ProductPage.vue', () => {
 
   it('계산식) ( 음료 단가 + 퍼스널 옵션 단가 * 퍼스널 옵션 갯수) * 음료 갯수', async () => {
     const displayPrice = price => `${price.toLocaleString()} 원`;
-    const { product } = await fetchProduct();
+    const { product } = await ProductRepository.fetchProduct();
     const wrapper = shallowMount(ProductPage);
     await flushPromises();
     const totalPrice = wrapper.get('[data-test="total-price"]').text();

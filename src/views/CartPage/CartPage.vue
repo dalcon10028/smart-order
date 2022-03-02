@@ -73,7 +73,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { fetchCart } from '@/api';
+import { OrderRepository } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
 import { XIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
@@ -97,6 +97,6 @@ const amountDue = computed(() =>
 );
 
 onMounted(async () => {
-  productList.value = await fetchCart();
+  productList.value = await OrderRepository.fetchCart();
 });
 </script>
