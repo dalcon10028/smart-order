@@ -1,7 +1,7 @@
 import { shallowMount, flushPromises } from '@vue/test-utils';
 import { fetchProductList } from '@/api';
 import { displayPrice } from '@/utils/format';
-import { ProuctState } from '@/constant/product';
+import { ProductState } from '@/constant/product';
 import ProductListPage from './ProductListPage.vue';
 
 describe('ProductListPage.vue', () => {
@@ -54,7 +54,7 @@ describe('ProductListPage.vue', () => {
     const newProductIndex = productList.findIndex(product => product.isNew);
 
     const newProduct = wrapper.findAll('[data-test="product"]').at(newProductIndex);
-    expect(newProduct.find('[data-test="product-state"]').text()).toEqual(ProuctState.NEW);
+    expect(newProduct.find('[data-test="product-state"]').text()).toEqual(ProductState.NEW);
   });
 
   it('만약 해당 상품이 인기 제품일 경우, 상품명 우측에 빨간색 위첨자로 Hot이 표시가 되어야 합니다.', () => {
@@ -62,6 +62,6 @@ describe('ProductListPage.vue', () => {
     const hotProductIndex = productList.findIndex(product => product.isHot);
 
     const hotProduct = wrapper.findAll('[data-test="product"]').at(hotProductIndex);
-    expect(hotProduct.find('[data-test="product-state"]').text()).toEqual(ProuctState.HOT);
+    expect(hotProduct.find('[data-test="product-state"]').text()).toEqual(ProductState.HOT);
   });
 });

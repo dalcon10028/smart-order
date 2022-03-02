@@ -1,4 +1,4 @@
-export const ProuctState = {
+export const ProductState = {
   BEST: 'Best',
   NEW: 'New',
   HOT: 'Hot',

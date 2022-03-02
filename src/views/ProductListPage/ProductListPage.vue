@@ -30,7 +30,7 @@
                 hidden: !(product.isHot || product.isNew),
               }"
               data-test="product-state"
-              >{{ product.isHot ? ProuctState.HOT : ProuctState.NEW }}</span
+              >{{ product.isHot ? ProductState.HOT : ProductState.NEW }}</span
             >
           </div>
 
@@ -56,7 +56,7 @@
 import { onMounted, reactive } from 'vue';
 import { fetchProductList } from '@/api';
 import { displayPrice } from '@/utils/format';
-import { ProuctState } from '@/constant/product';
+import { ProductState } from '@/constant/product';
 
 const state = reactive({});
 
