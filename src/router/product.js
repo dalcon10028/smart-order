@@ -2,13 +2,16 @@ export default [
   {
     path: '/home',
     component: () => import('@/views/ProductListPage/ProductListPage.vue'),
+    meta: { auth: true },
   },
   {
     path: '/product/:id',
     component: () => import('@/views/ProductPage/ProductPage.vue'),
+    meta: { auth: true },
   },
   {
     path: '/cart',
     component: () => import('@/views/CartPage/CartPage.vue'),
+    meta: { auth: true },
   },
 ];

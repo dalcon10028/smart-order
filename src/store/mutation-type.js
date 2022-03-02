@@ -1,1 +1,2 @@
 export const FETCH_ACCESS_TOKEN = 'FETCH_ACCESS_TOKEN';
+export const FETCH_USER_INFO = 'FETCH_USER_INFO';
