@@ -1,5 +1,10 @@
 import { instance } from './instance';
 
-export const fetchCart = () => instance.get('/cart');
-
-export const addCartItem = cartItem => instance.post('/', cartItem);
+export default {
+  fetchCart() {
+    return instance.get('/cart');
+  },
+  addCartItem(cartItem) {
+    return instance.post('/', cartItem);
+  },
+};

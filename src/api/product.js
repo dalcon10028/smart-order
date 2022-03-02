@@ -1,5 +1,10 @@
 import { instance } from './instance';
 
-export const fetchProductList = () => instance.get('/product');
-
-export const fetchProduct = productNo => instance.get(`/product/${productNo}`);
+export default {
+  fetchProductList() {
+    return instance.get('/product');
+  },
+  fetchProduct(productNo) {
+    return instance.get(`/product/${productNo}`);
+  },
+};
