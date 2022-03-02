@@ -1,7 +1,7 @@
-export const ProuctState = {
-  ACTIVE: 'ACTIVE',
-  BEST: 'BEST',
-  ARCHIVED: 'ARCHIVED',
+export const ProductState = {
+  BEST: 'Best',
+  NEW: 'New',
+  HOT: 'Hot',
 };
 
 export const ProductTemperature = {

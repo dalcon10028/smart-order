@@ -89,6 +89,7 @@ import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
 import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
 import { fetchProduct } from '@/api';
+import { displayPrice } from '@/utils/format';
 
 const product = ref({
   productNo: null,
@@ -134,6 +135,4 @@ const order = reactive({
 onMounted(async () => {
   product.value = await fetchProduct().then(data => data.product);
 });
-
-const displayPrice = price => `${price.toLocaleString()} 원`;
 </script>
