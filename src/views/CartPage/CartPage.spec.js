@@ -3,6 +3,18 @@ import { fetchCart } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
 import CartPage from './CartPage.vue';
 
+const totalPrice = product => {
+  const {
+    price,
+    quantity,
+    options: { personal },
+  } = product;
+  return (
+    price * quantity +
+    personal.reduce((acc, pn) => acc + (pn.quantity - pn.baseQuantity) * pn.unitPrice, 0)
+  );
+};
+
 describe('CartPage.vue', () => {
   it('상품의 사진이 표시됩니다.', async () => {
     const productList = await fetchCart();
@@ -39,7 +51,7 @@ describe('CartPage.vue', () => {
     await flushPromises();
     const firstProductOption = wrapper.find('[data-test="product-option-name"]');
 
-    expect(firstProductOption.text()).toEqual(optionsFormat(productList.options));
+    expect(firstProductOption.text()).toEqual(optionsFormat(productList[0].options));
   });
 
   it('상품의 단일 가격이 표시됩니다.', async () => {
@@ -64,7 +76,7 @@ describe('CartPage.vue', () => {
     const productList = await fetchCart();
     const wrapper = shallowMount(CartPage);
     await flushPromises();
-    const firstPersonalOptionPrice = wrapper.find('[data-test="personal-option-name"]');
+    const firstPersonalOptionPrice = wrapper.find('[data-test="personal-option-price"]');
 
     expect(firstPersonalOptionPrice.text()).toEqual(
       displayPrice(productList[0].options.personal[0].unitPrice),
@@ -83,7 +95,8 @@ describe('CartPage.vue', () => {
       options: { personal },
     } = productList[0];
     const mockTotalPrice =
-      price * quantity + personal.reduce((acc, pn) => acc + pn.quantity * pn.unitPrice, 0);
+      price * quantity +
+      personal.reduce((acc, pn) => acc + (pn.quantity - pn.baseQuantity) * pn.unitPrice, 0);
 
     expect(productTotalPrice.text()).toEqual(displayPrice(mockTotalPrice));
   });
@@ -94,13 +107,7 @@ describe('CartPage.vue', () => {
     await flushPromises();
     const amountDue = wrapper.find('[data-test="amt-due"]');
 
-    const mockAmountDue = productList.reduce((acc, { price, quantity, options: { personal } }) => {
-      const mockTotalPrice =
-        price * quantity +
-        personal.reduce((pAcc, { quantity: pQty, unitPrice: pUpc }) => pAcc + pQty * pUpc, 0);
-
-      return acc + price * quantity + mockTotalPrice;
-    }, 0);
+    const mockAmountDue = productList.reduce((acc, product) => acc + totalPrice(product), 0);
 
     expect(amountDue.text()).toEqual(displayPrice(mockAmountDue));
   });
