@@ -18,7 +18,7 @@
             data-test="product-image"
           />
           <div class="flex flex-col pt-2 pl-5 grow">
-            <div class="text-xl font-bold duration-200 delay-100">
+            <div class="text-xl font-bold duration-200 delay-100" data-test="product-name">
               {{ product.name }}
             </div>
 
@@ -26,32 +26,31 @@
               {{ product.engName }}
             </div>
             <div class="flex justify-between mt-3 text-gray-500">
-              <span>{{ optionsFormat(product.options) }}</span>
-              <span class="font-semibold">4,500원</span>
+              <span data-test="product-option-name">{{ optionsFormat(product.options) }}</span>
+              <span class="font-semibold" data-test="product-price">{{
+                displayPrice(product.price)
+              }}</span>
             </div>
             <div
               class="flex justify-between text-gray-500"
               v-for="option in product.options.personal"
               :key="option.optionNo"
             >
-              <span>{{ option.name }} {{ option.quantity }}</span>
-              <span class="font-semibold">{{ displayPrice(option.unitPrice) }}</span>
+              <div>
+                <span data-test="personal-option-name">{{ option.name }}</span>
+                <span>{{ option.quantity }}</span>
+              </div>
+              <span class="font-semibold" data-test="personal-option-price">{{
+                displayPrice(option.unitPrice)
+              }}</span>
             </div>
-            <!-- <div class="flex justify-between text-gray-500">
-              <span>바닐라 시럽 1</span>
-              <span class="font-semibold">600원</span>
-            </div>
-            <div class="flex justify-between text-gray-500">
-              <span>에스프레소 샷 3</span>
-              <span class="font-semibold">600원</span>
-            </div> -->
             <div class="flex justify-between mt-3">
-              <counter min="1" :id="product.name" v-model="product.quantity" />
+              <counter :min="product.baseQuantity" :id="product.name" v-model="product.quantity" />
               <div
                 class="text-lg font-bold transition-all duration-200 delay-100 group-hover:text-indigo-500"
-                data-test="product-price"
+                data-test="product-total-price"
               >
-                {{ displayPrice(product.price) }}
+                {{ displayPrice(totalPrice(product)) }}
               </div>
             </div>
           </div>
@@ -61,7 +60,9 @@
         </div>
       </div>
       <div class="flex flex-col">
-        <div class="my-3 ml-auto text-3xl font-extrabold mr-7">{{ displayPrice(amountDue) }}</div>
+        <div class="my-3 ml-auto text-3xl font-extrabold mr-7" data-test="amt-due">
+          {{ displayPrice(amountDue) }}
+        </div>
         <button class="block h-12 font-bold bg-green-600 mx-7 rounded-3xl text-green-50">
           주문하기
         </button>
@@ -79,16 +80,20 @@ import Counter from '@/components/molecules/Counter/Counter.vue';
 
 const productList = ref([]);
 
+const totalPrice = product => {
+  const {
+    price,
+    quantity,
+    options: { personal },
+  } = product;
+  return (
+    price * quantity +
+    personal.reduce((acc, pn) => acc + (pn.quantity - pn.baseQuantity) * pn.unitPrice, 0)
+  );
+};
+
 const amountDue = computed(() =>
-  productList.value.reduce((acc, { price, quantity, options: { personal } }) => {
-    const productPrice = price * quantity;
-    const productOptionsPrice = personal.reduce(
-      (acc2, { quantity: qty, unitPrice, baseQuantity: baseQty }) =>
-        acc2 + (qty - baseQty) * unitPrice,
-      0,
-    );
-    return acc + productPrice + productOptionsPrice;
-  }, 0),
+  productList.value.reduce((acc, product) => acc + totalPrice(product), 0),
 );
 
 onMounted(async () => {
