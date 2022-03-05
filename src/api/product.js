@@ -1,10 +1,10 @@
-import { instance } from './instance';
+import { authInstance } from './instance';
 
 export default {
   fetchProductList() {
-    return instance.get('/product');
+    return authInstance.get('/product');
   },
   fetchProduct(productNo) {
-    return instance.get(`/product/${productNo}`);
+    return authInstance.get(`/product/${productNo}`);
   },
 };

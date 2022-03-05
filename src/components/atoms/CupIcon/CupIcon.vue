@@ -2,11 +2,11 @@
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
-    :width="size"
-    :height="size"
     viewBox="0 0 512.000000 512.000000"
     preserveAspectRatio="xMidYMid meet"
     data-test="cup-icon"
+    :width="CUP_SIZE[size]"
+    :height="CUP_SIZE[size]"
   >
     <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" stroke="none">
       <path
@@ -31,13 +31,20 @@
   </svg>
 </template>
 
-<script>
-export default {
-  props: {
-    size: {
-      type: [String, Number],
-      requied: true,
-    },
-  },
+<script setup>
+import { defineProps } from 'vue';
+
+const CUP_SIZE = {
+  'text-sm': 30,
+  'text-md': 35,
+  'text-lg': 40,
+  'text-xl': 45,
 };
+
+defineProps({
+  size: {
+    type: [String, Number],
+    required: true,
+  },
+});
 </script>

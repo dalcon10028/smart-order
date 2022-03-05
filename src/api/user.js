@@ -1,4 +1,4 @@
-import { instance } from './instance';
+import { instance, authInstance } from './instance';
 
 export default {
   createUser(joinForm) {
@@ -14,6 +14,6 @@ export default {
     });
   },
   fetchUserInfo() {
-    return instance.get('/info');
+    return authInstance.get('/info');
   },
 };

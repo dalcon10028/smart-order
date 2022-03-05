@@ -5,7 +5,7 @@ export default [
     meta: { auth: true },
   },
   {
-    path: '/product/:id',
+    path: '/product/:productNo',
     component: () => import('@/views/ProductPage/ProductPage.vue'),
     meta: { auth: true },
   },

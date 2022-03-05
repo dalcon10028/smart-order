@@ -1,9 +1,14 @@
 import { shallowMount } from '@vue/test-utils';
-import LoginForm from '@/components/molecules/LoginForm/LoginForm.vue';
+import LoginForm from './LoginForm.vue';
 
 describe('LoginForm.vue', () => {
   it('아이디와 비밀번호를 입력하는 입력란과 로그인을 위한 버튼이 존재합니다.', () => {
-    const wrapper = shallowMount(LoginForm);
+    const wrapper = shallowMount(LoginForm, {
+      props: {
+        userId: 'userId',
+        password: 'pw',
+      },
+    });
     const idInput = wrapper.get('#userId');
     const pwInput = wrapper.get('#password');
     const loginButton = wrapper.get('#login');

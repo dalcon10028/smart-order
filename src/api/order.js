@@ -1,10 +1,13 @@
-import { instance } from './instance';
+import { authInstance } from './instance';
 
 export default {
   fetchCart() {
-    return instance.get('/cart');
+    return authInstance.get('/cart');
   },
   addCartItem(cartItem) {
-    return instance.post('/', cartItem);
+    return authInstance.post('/cart', cartItem);
+  },
+  order() {
+    return authInstance.post('/order');
   },
 };

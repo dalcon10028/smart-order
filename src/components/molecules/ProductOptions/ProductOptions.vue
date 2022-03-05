@@ -34,7 +34,7 @@
           type="radio"
           :id="size.name"
           class="hidden peer"
-          @change="$emit('update:cupSize', ProductSize[size.name.toUpperCase()])"
+          @change="$emit('update:cupSize', size.optionNo)"
         />
         <div class="btn-cup-size">
           <cup-icon class="h-10 mx-auto" :size="size.iconSize" />
@@ -78,7 +78,7 @@
 import { defineProps, defineEmits } from 'vue';
 import CupIcon from '@/components/atoms/CupIcon/CupIcon.vue';
 import Counter from '@/components/molecules/Counter/Counter.vue';
-import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
+import { ProductTemperature, ProductCup } from '@/constant/product';
 
 defineProps({
   hotOrIce: {
@@ -90,7 +90,7 @@ defineProps({
     required: true,
   },
   cupSize: {
-    type: String,
+    type: Number,
     required: true,
   },
   cupType: {
