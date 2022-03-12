@@ -13,7 +13,7 @@
         >
           <img
             class="rounded-full w-28 h-28"
-            :src="order.product.imageUrl || ''"
+            :src="order.product.imgUrl"
             :alt="order.product.nameKr"
             data-test="product-image"
           />
@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { OrderRepository } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
@@ -84,31 +84,18 @@ import Counter from '@/components/molecules/Counter/Counter.vue';
 
 const router = useRouter();
 
-const orderList = ref([
-  {
-    quantity: 1,
-    cupSize: {
-      optionNo: 2,
-      name: 'Tall',
-    },
-    options: [
-      {
-        optionNo: 1,
-        quantity: 1,
-        name: '에스프레소 샷',
-        unitprice: 500,
-        baseQuantity: 1,
-      },
-    ],
-    product: {
-      nameKr: '카푸치노',
-      nameEng: 'Cappuccino',
-      isNewProduct: false,
-      isHot: false,
-      price: 5000,
-    },
-  },
-]);
+const { data } = await OrderRepository.fetchCart();
+const orderList = ref(
+  data.cart.map(({ cupSize, options, optionsInfo, product, quantity }) => ({
+    cupSize,
+    options: options.map(option => ({
+      ...option,
+      ...optionsInfo.find(({ optionNo }) => optionNo === option.optionNo),
+    })),
+    quantity,
+    product,
+  })),
+);
 
 const totalPrice = order => {
   const { options, quantity, product } = order;
@@ -132,17 +119,4 @@ const order = async () => {
     router.push('/');
   }
 };
-
-onMounted(async () => {
-  const { data } = await OrderRepository.fetchCart();
-  orderList.value = data.cart.map(({ cupSize, options, optionsInfo, product, quantity }) => ({
-    cupSize,
-    options: options.map(option => ({
-      ...option,
-      ...optionsInfo.find(({ optionNo }) => optionNo === option.optionNo),
-    })),
-    quantity,
-    product,
-  }));
-});
 </script>

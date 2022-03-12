@@ -2,7 +2,10 @@
   <div class="w-full h-screen">
     <router-view v-slot="{ Component }">
       <transition name="fade">
-        <component :is="Component" />
+        <Suspense>
+          <component :is="Component" />
+          <template #fallback> 로딩중... </template>
+        </Suspense>
       </transition>
     </router-view>
     <bottom-navigation />

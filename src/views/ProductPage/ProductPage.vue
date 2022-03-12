@@ -30,9 +30,6 @@
           <span class="ml-1 text-red-600 align-top" v-if="product.isHot" data-test="product-state"
             >Best</span
           >
-          <span class="ml-1 text-red-600 align-top" v-if="product.isHot" data-test="product-state"
-            >Best</span
-          >
           <p class="leading-relaxed" data-test="product-discription">
             {{ product.discription }}
           </p>
@@ -92,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
@@ -103,44 +100,20 @@ import { displayPrice } from '@/utils/format';
 const route = useRoute();
 const router = useRouter();
 
-const product = ref({
-  productNo: 0,
-  nameKr: '',
-  nameEng: '',
-  description: '',
-  isNewProduct: null,
-  isHot: null,
-  imgUrl: '',
-  price: 0,
-  category: 0,
-  options: [
-    {
-      name: '에스프레소 샷',
-      unitprice: 500,
-      baseQuantity: 1,
-      optionNo: 1,
-    },
-  ],
-  cupSizes: [
-    {
-      optionNo: 1,
-      name: 'Short',
-      iconSize: 'text-sm',
-    },
-    {
-      optionNo: 2,
-      name: 'Tall',
-      iconSize: 'text-md',
-    },
-  ],
-});
+const { productNo } = route.params;
+const { data } = await ProductRepository.fetchProduct(productNo);
+
+const product = ref(data.product);
 
 const order = reactive({
   quantity: 1,
   hotOrIce: '',
   cupSize: 0,
   cupType: '',
-  personalOptions: [],
+  personalOptions: product.value.options.map(option => ({
+    ...option,
+    quantity: option.baseQuantity,
+  })),
   totalPrice: computed(() => {
     const optionsPrice = order.personalOptions.reduce(
       (acc, { quantity, unitprice, baseQuantity }) => acc + unitprice * (quantity - baseQuantity),
@@ -169,15 +142,4 @@ const addCartItem = async () => {
     alert(message);
   }
 };
-
-onMounted(async () => {
-  const { productNo } = route.params;
-  const { data } = await ProductRepository.fetchProduct(productNo);
-  product.value = data.product;
-
-  order.personalOptions = product.value.options.map(option => ({
-    ...option,
-    quantity: option.baseQuantity,
-  }));
-});
 </script>
