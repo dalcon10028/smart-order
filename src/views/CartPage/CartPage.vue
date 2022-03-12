@@ -76,10 +76,13 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { OrderRepository } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
 import { XIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
+
+const router = useRouter();
 
 const orderList = ref([
   {
@@ -120,7 +123,14 @@ const amountDue = computed(() =>
 );
 
 const order = async () => {
-  await OrderRepository.order();
+  try {
+    await OrderRepository.order();
+    alert('주문이 완료되었습니다!');
+  } catch ({ response }) {
+    alert(response.data.message);
+  } finally {
+    router.push('/');
+  }
 };
 
 onMounted(async () => {
