@@ -9,28 +9,13 @@ jest.mock('vue-router', () => ({
 }));
 
 jest.mock('vuex', () => ({
-  state: jest.fn(() => ({
-    orderList: [
-      {
-        cupSize: { name: 'Short', optionNo: 1 },
-        options: [
-          { optionNo: 2, quantity: 1, name: '바닐라 시럽', unitprice: 300, baseQuantity: 0 },
-        ],
-        quantity: 1,
-        product: {
-          productNo: 1,
-          nameKr: '카페 라떼',
-          nameEng: 'Caffe Latte',
-          isNewProduct: true,
-          isHot: false,
-          imgUrl: 'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/cappuccino.jpg',
-          price: 5000,
-        },
-      },
-    ],
-    amountDue: 5000,
+  useStore: jest.fn(() => ({
+    getters: {
+      'cart/orderSummary': '카페 라떼 포함 1잔',
+      'cart/amountSummary': '5,000원을 결제합니다.',
+    },
+    dispatch: jest.fn(() => {}),
   })),
-  dispatch: jest.fn(() => {}),
 }));
 
 describe('PaymentPage.vue', () => {
@@ -51,7 +36,7 @@ describe('PaymentPage.vue', () => {
   });
 
   it('결재 금액을 표시합니다.', () => {
-    const orderSummary = wrapper.find('[data-test="order-summary"]');
+    const orderSummary = wrapper.find('[data-test="amount-summary"]');
 
     expect(orderSummary.text()).toEqual('5,000원을 결제합니다.');
   });
