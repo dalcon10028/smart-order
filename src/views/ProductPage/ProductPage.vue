@@ -42,7 +42,7 @@
               >
             </div>
             <product-options
-              v-model:hot-or-ice="order.hotOrIce"
+              v-model:is-hot="order.isHot"
               v-model:cup-size="order.cupSize"
               v-model:cup-type="order.cupType"
               v-model:personal-options="order.personalOptions"
@@ -107,7 +107,7 @@ const product = ref(data.product);
 
 const order = reactive({
   quantity: 1,
-  hotOrIce: '',
+  isHot: '',
   cupSize: 0,
   cupType: '',
   personalOptions: product.value.options.map(option => ({

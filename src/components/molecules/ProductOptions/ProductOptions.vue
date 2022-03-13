@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 row">
-    <div class="flex justify-center md:w-fit" role="group" data-test="hot-or-ice">
+    <div class="flex justify-center md:w-fit" role="group" data-test="is-hot">
       <label :for="ProductTemperature.HOT">
         <input
           name="hot-or-ice"
@@ -8,7 +8,7 @@
           type="radio"
           :id="ProductTemperature.HOT"
           data-test="temperature"
-          @change="$emit('update:hotOrIce', ProductTemperature.HOT)"
+          @change="$emit('update:isHot', ProductTemperature.HOT)"
         />
         <div class="btn-hot">HOT</div>
       </label>
@@ -19,7 +19,7 @@
           type="radio"
           :id="ProductTemperature.ICE"
           data-test="temperature"
-          @change="$emit('update:hotOrIce', ProductTemperature.ICE)"
+          @change="$emit('update:isHot', ProductTemperature.ICE)"
         />
         <div class="btn-ice">ICE</div>
       </label>
@@ -81,7 +81,7 @@ import Counter from '@/components/molecules/Counter/Counter.vue';
 import { ProductTemperature, ProductCup } from '@/constant/product';
 
 defineProps({
-  hotOrIce: {
+  isHot: {
     type: String,
     required: true,
   },
@@ -103,7 +103,7 @@ defineProps({
   },
 });
 
-defineEmits(['update:hotOrIce', 'update:cupSize', 'update:cupType']);
+defineEmits(['update:isHot', 'update:cupSize', 'update:cupType']);
 
 const cupTypes = [
   { label: '매장컵', name: ProductCup.SHOP, style: 'btn-cup-shop' },
