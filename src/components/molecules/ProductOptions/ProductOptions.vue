@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3 row">
-    <div class="flex justify-center md:w-fit" role="group" data-test="hot-or-ice">
+    <div class="flex justify-center md:w-fit" role="group" data-test="is-hot">
       <label :for="ProductTemperature.HOT">
         <input
           name="hot-or-ice"
@@ -8,7 +8,7 @@
           type="radio"
           :id="ProductTemperature.HOT"
           data-test="temperature"
-          @change="$emit('update:hotOrIce', ProductTemperature.HOT)"
+          @change="$emit('update:isHot', ProductTemperature.HOT)"
         />
         <div class="btn-hot">HOT</div>
       </label>
@@ -19,7 +19,7 @@
           type="radio"
           :id="ProductTemperature.ICE"
           data-test="temperature"
-          @change="$emit('update:hotOrIce', ProductTemperature.ICE)"
+          @change="$emit('update:isHot', ProductTemperature.ICE)"
         />
         <div class="btn-ice">ICE</div>
       </label>
@@ -34,7 +34,7 @@
           type="radio"
           :id="size.name"
           class="hidden peer"
-          @change="$emit('update:cupSize', ProductSize[size.name.toUpperCase()])"
+          @change="$emit('update:cupSize', size.optionNo)"
         />
         <div class="btn-cup-size">
           <cup-icon class="h-10 mx-auto" :size="size.iconSize" />
@@ -78,10 +78,10 @@
 import { defineProps, defineEmits } from 'vue';
 import CupIcon from '@/components/atoms/CupIcon/CupIcon.vue';
 import Counter from '@/components/molecules/Counter/Counter.vue';
-import { ProductTemperature, ProductSize, ProductCup } from '@/constant/product';
+import { ProductTemperature, ProductCup } from '@/constant/product';
 
 defineProps({
-  hotOrIce: {
+  isHot: {
     type: String,
     required: true,
   },
@@ -90,7 +90,7 @@ defineProps({
     required: true,
   },
   cupSize: {
-    type: String,
+    type: Number,
     required: true,
   },
   cupType: {
@@ -103,7 +103,7 @@ defineProps({
   },
 });
 
-defineEmits(['update:hotOrIce', 'update:cupSize', 'update:cupType']);
+defineEmits(['update:isHot', 'update:cupSize', 'update:cupType']);
 
 const cupTypes = [
   { label: '매장컵', name: ProductCup.SHOP, style: 'btn-cup-shop' },

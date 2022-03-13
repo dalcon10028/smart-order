@@ -2,7 +2,11 @@
   <section class="overflow-hidden text-gray-700 body-font">
     <div class="container px-5 py-4 mx-auto mb-20">
       <div class="flex justify-between py-2">
-        <button class="p-1 text-white bg-gray-600 rounded-full w-7" data-test="back-button">
+        <button
+          class="p-1 text-white bg-gray-600 rounded-full w-7"
+          data-test="back-button"
+          @click="router.go(-1)"
+        >
           <chevron-left-icon />
         </button>
         <button class="p-1 text-white bg-gray-600 rounded-full w-7" data-test="share-button">
@@ -12,8 +16,8 @@
       <div class="flex flex-wrap mx-auto lg:w-4/5">
         <img
           class="object-cover object-center w-full border border-gray-200 rounded lg:w-1/2"
-          :alt="product.name"
-          :src="product.imageUrl"
+          :alt="product.nameKr"
+          :src="product.imgUrl"
           data-test="product-image"
         />
         <div class="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:mt-0">
@@ -21,13 +25,13 @@
             class="inline mb-1 text-3xl font-medium text-gray-900 title-font"
             data-test="product-title"
           >
-            {{ product.name }}
+            {{ product.nameKr }}
           </h1>
-          <span class="ml-1 text-red-600 align-top" v-if="product.isBest" data-test="product-state"
+          <span class="ml-1 text-red-600 align-top" v-if="product.isHot" data-test="product-state"
             >Best</span
           >
-          <p class="leading-relaxed" data-test="product-discription">
-            {{ product.discription }}
+          <p class="leading-relaxed" data-test="product-description">
+            {{ product.description }}
           </p>
           <div class="container items-center pb-5 mt-6 mb-5 border-b-2 border-gray-200">
             <div class="row">
@@ -38,11 +42,11 @@
               >
             </div>
             <product-options
-              v-model:hot-or-ice="order.hotOrIce"
+              v-model:is-hot="order.isHot"
               v-model:cup-size="order.cupSize"
               v-model:cup-type="order.cupType"
               v-model:personal-options="order.personalOptions"
-              :size-list="product.cupSize"
+              :size-list="product.cupSizes"
             />
           </div>
           <div class="flex mb-3">
@@ -72,6 +76,7 @@
               <button
                 class="px-6 py-2 ml-2 text-white bg-indigo-500 border-0 hover:bg-indigo-600 rounded-3xl"
                 data-test="direct-order-button"
+                @click="addCartItem"
               >
                 주문하기
               </button>
@@ -84,47 +89,34 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { HeartIcon, ChevronLeftIcon, ShareIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
 import ProductOptions from '@/components/molecules/ProductOptions/ProductOptions.vue';
-import { fetchProduct } from '@/api';
+import { ProductRepository, OrderRepository } from '@/api';
 import { displayPrice } from '@/utils/format';
 
-const product = ref({
-  productNo: null,
-  name: null,
-  discription: null,
-  isBest: null,
-  imageUrl: null,
-  price: 0,
-  cupSize: [{ name: '', iconSize: 0 }],
-});
+const route = useRoute();
+const router = useRouter();
+
+const { productNo } = route.params;
+const { data } = await ProductRepository.fetchProduct(productNo);
+
+const product = ref(data.product);
 
 const order = reactive({
   quantity: 1,
-  hotOrIce: '',
-  cupSize: '',
+  isHot: '',
+  cupSize: 0,
   cupType: '',
-  personalOptions: [
-    {
-      optionNo: 1,
-      quantity: 1,
-      name: '에스프레소 샷',
-      unitPrice: 500,
-      baseQuantity: 1,
-    },
-    {
-      optionNo: 2,
-      quantity: 0,
-      name: '시럽',
-      unitPrice: 300,
-      baseQuantity: 0,
-    },
-  ],
+  personalOptions: product.value.options.map(option => ({
+    ...option,
+    quantity: option.baseQuantity,
+  })),
   totalPrice: computed(() => {
     const optionsPrice = order.personalOptions.reduce(
-      (acc, { quantity, unitPrice, baseQuantity }) => acc + unitPrice * (quantity - baseQuantity),
+      (acc, { quantity, unitprice, baseQuantity }) => acc + unitprice * (quantity - baseQuantity),
       0,
     );
     const ProductsPrice = order.quantity * product.value.price;
@@ -132,7 +124,22 @@ const order = reactive({
   }),
 });
 
-onMounted(async () => {
-  product.value = await fetchProduct().then(data => data.product);
-});
+const addCartItem = async () => {
+  try {
+    await OrderRepository.addCartItem({
+      productNo: product.value.productNo,
+      quantity: order.quantity,
+      cupSize: order.cupSize,
+      options: order.personalOptions.map(({ optionNo, quantity }) => ({ optionNo, quantity })),
+    });
+    alert('상품이 장바구니에 성공적으로 담겼습니다!');
+    router.go(-1);
+  } catch ({
+    response: {
+      data: { message },
+    },
+  }) {
+    alert(message);
+  }
+};
 </script>

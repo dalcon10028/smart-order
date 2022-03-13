@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center flex-col w-full h-full">
+  <div class="flex flex-col items-center justify-center w-full h-full">
     <login-form v-model:userId="userId" v-model:password="password" />
     <user-info-view :userId="userId" :password="password" />
   </div>

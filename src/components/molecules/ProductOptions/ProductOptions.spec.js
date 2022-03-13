@@ -7,8 +7,8 @@ describe('ProductOptions.vue', () => {
   beforeEach(() => {
     wrapper = mount(ProductOptions, {
       props: {
-        hotOrIce: '',
-        cupSize: '',
+        isHot: '',
+        cupSize: 0,
         cupType: '',
         sizeList: [{ name: 'Short', iconSize: 30 }],
         personalOptions: [
@@ -32,23 +32,23 @@ describe('ProductOptions.vue', () => {
   });
 
   it('음료의 단가 하단에는 핫/아이스를 선택할 수 있는 부분이 존재합니다.', () => {
-    const hotOrIceButton = wrapper.get('[data-test="hot-or-ice"]');
+    const hotOrIceButton = wrapper.get('[data-test="is-hot"]');
 
     expect(hotOrIceButton.exists()).toBeTruthy();
   });
 
   it('핫을 선택하려고 하면 핫 버튼이 빨간색 배경에 하얀 글자로 바뀌어야 합니다.', async () => {
-    wrapper.vm.$emit('update:hotOrIce', ProductTemperature.HOT);
+    wrapper.vm.$emit('update:isHot', ProductTemperature.HOT);
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted('update:hotOrIce')[0]).toEqual([ProductTemperature.HOT]);
+    expect(wrapper.emitted('update:isHot')[0]).toEqual([ProductTemperature.HOT]);
   });
 
   it('아이스를 선택하려고 하면 아이스 버튼이 파란색 배경에 하얀 글자로 바뀌어야 합니다.', async () => {
-    wrapper.vm.$emit('update:hotOrIce', ProductTemperature.ICE);
+    wrapper.vm.$emit('update:isHot', ProductTemperature.ICE);
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted('update:hotOrIce')[0]).toEqual([ProductTemperature.ICE]);
+    expect(wrapper.emitted('update:isHot')[0]).toEqual([ProductTemperature.ICE]);
   });
 
   it('핫/아이스 선택 하단에는 음료의 사이즈 선택지가 표시가 되어야 합니다.', () => {
@@ -59,8 +59,8 @@ describe('ProductOptions.vue', () => {
 
     wrapper = mount(ProductOptions, {
       props: {
-        hotOrIce: '',
-        cupSize: '',
+        isHot: '',
+        cupSize: 0,
         cupType: '',
         sizeList: cupSizeList,
         personalOptions: [
