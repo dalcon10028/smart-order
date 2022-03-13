@@ -10,6 +10,12 @@ jest.mock('vue-router', () => ({
   })),
 }));
 
+jest.mock('vuex', () => ({
+  useStore: jest.fn(() => ({
+    commit: () => {},
+  })),
+}));
+
 jest.mock('@/api', () => ({
   OrderRepository: {
     fetchCart: jest.fn(() =>

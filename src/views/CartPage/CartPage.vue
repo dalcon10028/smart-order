@@ -77,12 +77,15 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import { UPDATE_ORDER_LIST, UPDATE_AMOUNT_DUE } from '@/store/cart/mutation-type';
 import { OrderRepository } from '@/api';
 import { displayPrice, optionsFormat } from '@/utils/format';
 import { XIcon } from '@heroicons/vue/solid';
 import Counter from '@/components/molecules/Counter/Counter.vue';
 
 const router = useRouter();
+const store = useStore();
 
 const { data } = await OrderRepository.fetchCart();
 const orderList = ref(
@@ -109,14 +112,9 @@ const amountDue = computed(() =>
   orderList.value.reduce((acc, order) => acc + totalPrice(order), 0),
 );
 
-const order = async () => {
-  try {
-    await OrderRepository.order();
-    alert('주문이 완료되었습니다!');
-  } catch ({ response }) {
-    alert(response.data.message);
-  } finally {
-    router.push('/');
-  }
+const order = () => {
+  store.commit(`cart/${UPDATE_ORDER_LIST}`, orderList.value);
+  store.commit(`cart/${UPDATE_AMOUNT_DUE}`, amountDue.value);
+  router.push('/payment');
 };
 </script>

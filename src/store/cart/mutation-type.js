@@ -1,0 +1,3 @@
+export const UPDATE_ORDER_LIST = 'UPDATE_ORDER_LIST';
+export const UPDATE_AMOUNT_DUE = 'UPDATE_AMOUNT_DUE';
+export const CLEAR_ORDER = 'CLEAR_ORDER';
