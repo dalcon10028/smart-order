@@ -30,8 +30,8 @@
           <span class="ml-1 text-red-600 align-top" v-if="product.isHot" data-test="product-state"
             >Best</span
           >
-          <p class="leading-relaxed" data-test="product-discription">
-            {{ product.discription }}
+          <p class="leading-relaxed" data-test="product-description">
+            {{ product.description }}
           </p>
           <div class="container items-center pb-5 mt-6 mb-5 border-b-2 border-gray-200">
             <div class="row">
